@@ -13,7 +13,8 @@ for assignment in inpt:
 
     if a_start >= b_start and a_end <= b_end or b_start >= a_start and b_end <= a_end:
         full_duplicates += 1
-    if a_start >= b_start and a_start <= b_end or b_start >= a_start and b_start <= a_end:
+        part_duplicates += 1
+    elif a_start >= b_start and a_start <= b_end or b_start >= a_start and b_start <= a_end:
         part_duplicates += 1
 
 print(f"part 1: {full_duplicates}")

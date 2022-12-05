@@ -2,27 +2,23 @@
 
 from utils import *
 
-from functools import reduce
-from itertools import chain
-from math import log2
-
 inpt = get_input()
 
-priority = [
+PRIORITIES: list[str] = [
     chr(i) for i in chain(range(ord("a"), ord("z") + 1), range(ord("A"), ord("Z") + 1))
 ]
 
 misplaced_priority = 0
 for bag in inpt:
     contents = BitVec()
-    a, b = bag[:len(bag) // 2], bag[len(bag) // 2:]
+    a, b = bag[: len(bag) // 2], bag[len(bag) // 2 :]
 
     for item in a:
         contents[ord(item) - ord("A")] = True
 
     for item in b:
         if contents[ord(item) - ord("A")]:
-            misplaced_priority += priority.index(item) + 1
+            misplaced_priority += PRIORITIES.index(item) + 1
             break
 
 print(f"part 1: {misplaced_priority}")
@@ -40,7 +36,7 @@ for group in chunks(inpt, GROUP_SIZE):
 
     badge = reduce(lambda a, b: a & b, bags)
     badge = chr(int(log2(badge)) + ord("A"))
-    badge_priority += priority.index(badge) + 1
+    badge_priority += PRIORITIES.index(badge) + 1
 
 print(f"part 2: {badge_priority}")
 if "test" in sys.argv:

@@ -3,6 +3,11 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
+from copy import deepcopy
+from functools import reduce
+from itertools import chain
+from math import log2
+
 
 def get_input() -> list[str]:
     puzzle = Path(sys.argv[0]).stem
@@ -10,7 +15,7 @@ def get_input() -> list[str]:
         puzzle += "_test"
 
     with open(f"inputs/{puzzle}.txt") as file:
-        return [line.strip() for line in file.readlines()]
+        return [line.strip("\n") for line in file.readlines()]
 
 
 def chunks(lst, n):
