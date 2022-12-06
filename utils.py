@@ -9,17 +9,23 @@ from itertools import chain
 from math import log2
 
 
-def get_input() -> list[str]:
+def get_input() -> str | list[str]:
     puzzle = Path(sys.argv[0]).stem
     if "test" in sys.argv[1:]:
         puzzle += "_test"
 
     with open(f"inputs/{puzzle}.txt") as file:
-        return [line.strip("\n") for line in file.readlines()]
+        lines = [line.strip("\n") for line in file.readlines()]
+        return lines if len(lines) > 1 else lines[0]
 
 
 def chunks(lst, n):
     for i in range(0, len(lst), n):
+        yield lst[i : i + n]
+
+
+def windows(lst, n):
+    for i in range(0, len(lst) - n + 1):
         yield lst[i : i + n]
 
 
