@@ -6,7 +6,7 @@ from pathlib import Path
 from copy import deepcopy
 from functools import reduce
 from itertools import chain
-from math import log2
+from math import copysign, log2, sqrt
 
 
 def get_input() -> str | list[str]:
