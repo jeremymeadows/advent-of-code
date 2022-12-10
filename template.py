@@ -1,15 +1,35 @@
-#!/usr/bin/env python3
+from puzzles.utils import *
 
-from utils import *
 
-inpt = get_input()
+def part1(inpt):
+    return
 
-part1 = None
-print(f"part 1: {part1}")
-if "test" in sys.argv:
-    assert part1 == None
 
-part2 = None
-print(f"part 2: {part2}")
-if "test" in sys.argv:
-    assert part2 == None
+def part2(inpt):
+    return
+
+
+def main():
+    inpt = get_input(__file__)
+    print(f"part 1: {part1(inpt)}")
+    print(f"part 2: {part2(inpt)}")
+
+
+if __name__ == "__main__":
+    main()
+
+
+class Test(TestCase):
+    inpt = []
+
+    def test(self):
+        self.test_part1()
+        self.test_part2()
+
+    def test_part1(self):
+        self.assertEqual(part1(Test.inpt), None)
+        print("part 1 passed")
+
+    def test_part2(self):
+        self.assertEqual(part2(Test.inpt), None)
+        print("part 2 passed")
