@@ -34,8 +34,8 @@ def count(iterable: Iterable) -> int:
     return sum(1 for _ in iterable)
 
 
-def product(iterable: Iterable, /, start=0):
-    return reduce(lambda x, y: x * y, iterable[start:])
+def product(iterable: Iterable):
+    return reduce(lambda x, y: x * y, iterable)
 
 
 @dataclass(eq=True)
@@ -97,6 +97,7 @@ class Graph:
                 raise Exception("Negative cycle detected")
 
         return distance
+
 
 @dataclass(repr=True, eq=True)
 class Point:
