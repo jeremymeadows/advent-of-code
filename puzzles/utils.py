@@ -1,9 +1,8 @@
 import json
 import re
-import sys
 
 from copy import deepcopy
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from functools import cache, reduce
 from hashlib import md5
 from itertools import chain, combinations, permutations
@@ -38,7 +37,7 @@ def product(iterable: Iterable):
     return reduce(lambda x, y: x * y, iterable)
 
 
-@dataclass(eq=True)
+@dataclass
 class BitVec:
     __data = 0
 
@@ -52,10 +51,9 @@ class BitVec:
             self.__data &= ~(1 << index)
 
 
-@dataclass(repr=True)
+@dataclass
 class Graph:
-    def __init__(self):
-        self.__edgelist: dict[str, dict[str, int | float]] = {}
+    __edgelist: dict[str, dict[str, int | float]] = field(default_factory=dict)
 
     def add(self, src, dst, weight: int | float = 1):
         if src not in self.__edgelist:
@@ -99,14 +97,10 @@ class Graph:
         return distance
 
 
-@dataclass(repr=True, eq=True)
+@dataclass
 class Point:
-    def __init__(self, x=0, y=0):
-        self.x = x
-        self.y = y
-
-    def distance(self, other) -> float:
-        return sqrt(pow(abs(self.x - other.x), 2) + pow(abs(self.y - other.y), 2))
+    x: int
+    y: int
 
     def __iter__(self):
         yield self.x
@@ -118,5 +112,5 @@ class Point:
     def __sub__(self, other):
         return Point(self.x - other.x, self.y - other.y)
 
-    def __str__(self) -> str:
-        return f"Point({self.x}, {self.y})"
+    def distance(self, other) -> float:
+        return sqrt(pow(abs(self.x - other.x), 2) + pow(abs(self.y - other.y), 2))
