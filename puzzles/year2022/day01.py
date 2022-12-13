@@ -10,15 +10,7 @@ def part2(calories):
 
 
 def calories_per_elf(calories):
-    ndx = 0
-    elves = [0]
-    for calories_carried in calories:
-        if not calories_carried:
-            ndx += 1
-            elves += [0]
-        else:
-            elves[ndx] += int(calories_carried)
-    return elves
+    return [sum(map(int, calories_carried)) for calories_carried in split(calories, "")]
 
 
 def main():

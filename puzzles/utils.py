@@ -3,7 +3,8 @@ import re
 
 from copy import deepcopy
 from dataclasses import dataclass, field
-from functools import cache, reduce
+from enum import Enum
+from functools import cache, cmp_to_key, reduce
 from hashlib import md5
 from itertools import chain, combinations, permutations
 from math import copysign, log2, sqrt
@@ -27,6 +28,16 @@ def chunks(lst: list | str, n: int) -> Iterator[list | str]:
 def windows(lst: list | str, n: int) -> Iterator[list | str]:
     for i in range(0, len(lst) - n + 1):
         yield lst[i : i + n]
+
+
+def split(lst: list, separator) -> Iterator[list]:
+    ndx = 0
+    for i, e in enumerate(lst):
+        if e == separator:
+            yield lst[ndx:i]
+            ndx = i + 1
+        elif i == len(lst) - 1:
+            yield lst[ndx : i + 1]
 
 
 def count(iterable: Iterable) -> int:
