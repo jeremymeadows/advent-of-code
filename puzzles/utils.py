@@ -108,7 +108,7 @@ class Graph:
         return distance
 
 
-@dataclass
+@dataclass(frozen=True)
 class Point:
     x: int
     y: int
