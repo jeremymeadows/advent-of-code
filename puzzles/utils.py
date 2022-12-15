@@ -8,6 +8,7 @@ from functools import cache, cmp_to_key, reduce
 from hashlib import md5
 from itertools import chain, combinations, permutations
 from math import copysign, log2, sqrt
+from multiprocessing import Pool
 from pathlib import Path
 from unittest import TestCase
 from typing import Iterable, Iterator
@@ -108,7 +109,7 @@ class Graph:
         return distance
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, order=True)
 class Point:
     x: int
     y: int
@@ -125,3 +126,6 @@ class Point:
 
     def distance(self, other) -> float:
         return sqrt(pow(abs(self.x - other.x), 2) + pow(abs(self.y - other.y), 2))
+
+    def rectilinear_distance(self, other) -> int:
+        return abs(self.x - other.x) + abs(self.y - other.y)
