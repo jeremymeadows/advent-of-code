@@ -41,7 +41,7 @@ if __name__ == "__main__":
     mode = "run"
 
     match sys.argv[1:]:
-        case [year, day, mode]:
+        case [mode, year, day]:
             pass
         case [year, day]:
             pass

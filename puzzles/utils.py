@@ -49,6 +49,14 @@ def product(iterable: Iterable):
     return reduce(lambda x, y: x * y, iterable)
 
 
+def find(func, lst: list | str) -> int:
+    return next(filter(lambda e: func(e[1]), enumerate(lst)))[0]
+
+
+def rreplace(s, old, new, count=-1):
+    return new.join(s.rsplit(old, count))
+
+
 @dataclass
 class BitVec:
     __data = 0
@@ -107,6 +115,18 @@ class Graph:
                 raise Exception("Negative cycle detected")
 
         return distance
+    
+    def all_paths(self, src):
+        paths = []
+        def __all_paths_inner(g, src, visited: list[str] = []):
+            visited.append(src)
+            for vertex in g.__edgelist[src]:
+                if vertex not in visited:
+                    __all_paths_inner(g, vertex, visited.copy())
+            paths.append(visited)
+        
+        __all_paths_inner(self, src)
+        return paths
 
 
 @dataclass(frozen=True, order=True)
