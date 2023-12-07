@@ -52,9 +52,18 @@ def product(iterable: Iterable):
 def find(func, lst: list | str) -> int:
     return next(filter(lambda e: func(e[1]), enumerate(lst)))[0]
 
+def rfind(func, lst: list | str) -> int:
+    return next(filter(lambda e: func(e[1]), reversed(list(enumerate(lst)))))[0]
+
 
 def rreplace(s, old, new, count=-1):
     return new.join(s.rsplit(old, count))
+
+
+def range_intersection(a: tuple[int, int], b: tuple[int, int]) -> tuple[int, int] | None:
+    if b[0] < a[0]:
+        a, b = b, a
+    return (b[0], min(a[1], b[1])) if b[0] < a[1] else None
 
 
 @dataclass
