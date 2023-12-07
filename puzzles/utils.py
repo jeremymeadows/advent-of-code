@@ -1,6 +1,7 @@
 import json
 import re
 
+from collections import Counter
 from copy import deepcopy
 from dataclasses import dataclass, field
 from enum import Enum
@@ -49,8 +50,11 @@ def product(iterable: Iterable):
     return reduce(lambda x, y: x * y, iterable)
 
 
-def find(func, lst: list | str) -> int:
-    return next(filter(lambda e: func(e[1]), enumerate(lst)))[0]
+def find(func, lst: list | str) -> int | None:
+    try:
+        return next(filter(lambda e: func(e[1]), enumerate(lst)))[0]
+    except StopIteration:
+        return None
 
 def rfind(func, lst: list | str) -> int:
     return next(filter(lambda e: func(e[1]), reversed(list(enumerate(lst)))))[0]
