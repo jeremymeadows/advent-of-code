@@ -7,8 +7,8 @@ from dataclasses import dataclass, field
 from enum import Enum
 from functools import cache, cmp_to_key, reduce
 from hashlib import md5
-from itertools import chain, combinations, permutations
-from math import copysign, log2, sqrt
+from itertools import chain, combinations, cycle, permutations
+from math import copysign, lcm, log2, sqrt
 from multiprocessing import Pool
 from pathlib import Path
 from unittest import TestCase
@@ -56,6 +56,7 @@ def find(func, lst: list | str) -> int | None:
     except StopIteration:
         return None
 
+
 def rfind(func, lst: list | str) -> int:
     return next(filter(lambda e: func(e[1]), reversed(list(enumerate(lst)))))[0]
 
@@ -101,7 +102,7 @@ class Graph:
                 nodes.add(v)
         return nodes
 
-    def edges(self) -> set[(str, str, int | float)]:
+    def edges(self) -> set[tuple[str, str, int | float]]:
         edges = set()
         for u in self.__edgelist:
             for v, w in self.__edgelist[u].items():
