@@ -13,29 +13,45 @@ def part1(inpt):
 
 
 def part2(inpt):
-    seed_ranges = [(s, s + n) for s, n in chunks([int(i) for i in inpt[0].split(': ')[1].split()], 2)]
-    seeds = {}
-    print(seed_ranges)
+    seed_ranges = deque((int(s), int(s + n), int(0)) for s, n in chunks([i for i in inpt[0].split(': ')[1].split()], 2))
+    maps = [[tuple(map(int, e.split())) for e in i[1:]] for i in map(lambda e: e.split('\n'), '\n'.join(inpt[2:]).split('\n\n'))]
 
-    # for start, count in seed_ranges:
-    #     while count > 0:
-    #         seeds[start + count - 1] = start + count - 1
-    #         count -= 1
+    # seed_ranges = deque([seed_ranges[0]])
+    closest = float('inf')
 
-    for mapping in '\n'.join(inpt[2:]).split('\n\n'):
-        print(mapping.split('\n')[0])
-        for seed_range in seed_ranges:
-            for dst, src, rng in ((int(i) for i in m.split()) for m in mapping.split('\n')[1:]):
-                if (r := range_intersection(seed_range, (src, src + rng))):
-                    for seed in range(r[0], r[1] + 1):
-                        seeds[seed] = 
-        # for seed, curr in seeds.items():
-        #     for dst, src, rng in ((int(i) for i in m.split()) for m in mapping.split('\n')[1:]):
-        #         if (i := curr - src) >= 0 and i < rng:
-        #             seeds[seed] = dst + i
-        #             break
+    while len(seed_ranges) != 0:
+        start, end, m = seed_ranges.popleft()
 
-    return min(seeds.values())
+        if m == len(maps):
+            closest = min(closest, start)
+            continue
+
+        print(f'seeds: {start}-{end - 1} with map {m}')
+        for mapping in maps[m]:
+            map_range = (mapping[1], mapping[1] + mapping[2])
+            map_diff = mapping[0] - mapping[1]
+
+            print(f'  mapping {map_range[0]}-{map_range[1] - 1} to {map_range[0] + map_diff}-{map_range[1] + map_diff - 1}')
+            if overlap := range_intersection((start, end), map_range):
+                for a, b in split_range((start, end), overlap):
+                    if a in range(*map_range):
+                        print(f'    {(a, b - 1)} to {(a + map_diff, b + map_diff - 1)}')
+                        seed_ranges.append((a + map_diff, b + map_diff, m + 1))
+                    else:
+                        print(f'    {(a, b - 1)} to {(a, b - 1)} (retry)')
+                        seed_ranges.appendleft((a, b, m))
+                break
+        else:
+            print(f'  no change for {start}-{end - 1}')
+            seed_ranges.append((start, end, m + 1))
+
+    return closest
+    # 593433105 high
+    # 231612163 high
+    # 930661260
+    # 634347552
+    # 1296352523
+    # 54576670 high
 
 
 def main():

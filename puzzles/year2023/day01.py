@@ -3,9 +3,7 @@ from puzzles.utils import *
 
 def part1(inpt):
     values = [[c for c in line if c.isdigit()] for line in inpt]
-    for i, val in enumerate(values):
-        values[i] = int(f'{val[0]}{val[-1]}')
-    return sum(values)
+    return sum(int(f'{val[0]}{val[-1]}') for val in values)
 
 
 def part2(inpt):
@@ -41,9 +39,7 @@ def part2(inpt):
         inpt[i] = line
 
     values = [[c for c in line if c.isdigit()] for line in inpt]
-    for i, val in enumerate(values):
-        values[i] = int(f'{val[0]}{val[-1]}')
-    return sum(values)
+    return sum(int(f'{val[0]}{val[-1]}') for val in values)
 
 
 def main():
