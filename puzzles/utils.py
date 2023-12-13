@@ -42,6 +42,10 @@ def split(lst: list, separator) -> Iterator[list]:
             yield lst[ndx: i + 1]
 
 
+def partition(lst: list, ndx: int) -> tuple[list, list]:
+    return (lst[:ndx], lst[ndx:])
+
+
 def count(iterable: Iterable) -> int:
     return sum(1 for _ in iterable)
 
