@@ -53,8 +53,13 @@ def count(iterable: Iterable) -> int:
 def product(iterable: Iterable):
     return reduce(lambda x, y: x * y, iterable)
 
+def find(predicate, iterable: Iterable) -> Any | None:
+    try:
+        return next(filter(predicate, iterable))
+    except StopIteration:
+        return None
 
-def find(predicate, lst: list | str) -> int | None:
+def position(predicate, lst: list | str) -> int | None:
     try:
         return next(filter(lambda e: predicate(e[1]), enumerate(lst)))[0]
     except StopIteration:
