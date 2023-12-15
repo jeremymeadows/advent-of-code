@@ -53,11 +53,13 @@ def count(iterable: Iterable) -> int:
 def product(iterable: Iterable):
     return reduce(lambda x, y: x * y, iterable)
 
+
 def find(predicate, iterable: Iterable) -> Any | None:
     try:
         return next(filter(predicate, iterable))
     except StopIteration:
         return None
+
 
 def position(predicate, lst: list | str) -> int | None:
     try:
@@ -72,6 +74,12 @@ def find_all(predicate, lst: list | str) -> list[int]:
 
 def rfind(func, lst: list | str) -> int:
     return next(filter(lambda e: func(e[1]), reversed(list(enumerate(lst)))))[0]
+
+
+def remove(predicate, lst: list) -> Any | None:
+    for e in lst:
+        if predicate(e):
+            lst.remove(e)
 
 
 def rreplace(s, old, new, count=-1):
@@ -222,4 +230,3 @@ class StateMachine:
             self.current_state = next_state
         else:
             raise Exception('invalid state transition')
-            # pass
