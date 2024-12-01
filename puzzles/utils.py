@@ -132,25 +132,25 @@ class BitVec:
 
 @dataclass
 class Graph:
-    __edgelist: dict[str, dict[str, int | float]] = field(default_factory=dict)
+    _edgelist: dict[str, dict[str, int | float]] = field(default_factory=dict)
 
     def add(self, src, dst, weight: int | float = 1):
-        if src not in self.__edgelist:
-            self.__edgelist[src] = {}
-        self.__edgelist[src][dst] = weight
+        if src not in self._edgelist:
+            self._edgelist[src] = {}
+        self._edgelist[src][dst] = weight
 
     def nodes(self) -> set[str]:
         nodes = set()
-        for u in self.__edgelist:
+        for u in self._edgelist:
             nodes.add(u)
-            for v in self.__edgelist[u]:
+            for v in self._edgelist[u]:
                 nodes.add(v)
         return nodes
 
     def edges(self) -> set[tuple[str, str, int | float]]:
         edges = set()
-        for u in self.__edgelist:
-            for v, w in self.__edgelist[u].items():
+        for u in self._edgelist:
+            for v, w in self._edgelist[u].items():
                 edges.add((u, v, w))
         return edges
 
@@ -180,7 +180,7 @@ class Graph:
 
         def __all_paths_inner(g, src, visited: list[str] = []):
             visited.append(src)
-            for vertex in g.__edgelist[src]:
+            for vertex in g._edgelist[src]:
                 if vertex not in visited:
                     __all_paths_inner(g, vertex, visited.copy())
             paths.append(visited)
