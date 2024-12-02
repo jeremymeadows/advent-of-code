@@ -82,6 +82,13 @@ def remove(predicate, lst: list) -> Any | None:
             lst.remove(e)
 
 
+def is_sorted(lst: list, reverse=False) -> bool:
+    return all(
+        lst[i] <= lst[i + 1] if not reverse else lst[i] >= lst[i + 1]
+        for i in range(len(lst) - 1)
+    )
+
+
 def rreplace(s, old, new, count=-1):
     return new.join(s.rsplit(old, count))
 
