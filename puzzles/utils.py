@@ -61,6 +61,13 @@ def find(predicate, iterable: Iterable) -> Any | None:
         return None
 
 
+def find_substring(sublist: list | str, lst: list | str) -> int | None:
+    try:
+        return next(filter(lambda i: lst[i:i + len(sublist)] == sublist, range(len(lst))))
+    except StopIteration:
+        return None
+
+
 def position(predicate, lst: list | str) -> int | None:
     try:
         return next(filter(lambda e: predicate(e[1]), enumerate(lst)))[0]

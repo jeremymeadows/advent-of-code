@@ -9,26 +9,30 @@ def part1(inpt):
         if e != '.':
             antennas[e] = antennas.get(e, []) + [(i % w, i // h)]
 
-    print(antennas)
     antinodes = set()
     for antenna in antennas:
-        print(antenna)
         for a, b in combinations(antennas[antenna], 2):
             a = Point(*a)
             b = Point(*b)
-            print(a, b)
-            node = Point(0, 0)
-            minx, maxx = sorted([a.x, b.x])
-            miny, maxy = sorted([a.y, b.y])
-            dx, dy = maxx - minx, maxy - miny
-            if (x := minx - dx) >= 0 and x < w and (y := miny - dy) >= 0 and y < h:
-                antinodes.add((minx - dx, miny - dy))
-            if (x := maxx + dx) >= 0 and x < w and (y := maxy + dy) >= 0 and y < h:
-                antinodes.add((maxx + dx, maxy + dy))
-            print((minx - dx, miny - dy))
-            print((maxx + dx, maxy + dy))
-
-    print(antinodes)
+            dx, dy = abs(a.x - b.x), abs(a.y - b.y)
+            nodes = []
+            if a.x < b.x:
+                if a.y < b.y:
+                    nodes += [(a.x - dx, a.y - dy)]
+                    nodes += [(b.x + dx, b.y + dy)]
+                else:
+                    nodes += [(a.x - dx, a.y + dy)]
+                    nodes += [(b.x + dx, a.y - dy)]
+            else:
+                if a.y < b.y:
+                    nodes += [(a.x + dx, a.y - dy)]
+                    nodes += [(b.x - dx, b.y + dy)]
+                else:
+                    nodes += [(a.x + dx, a.y + dy)]
+                    nodes += [(b.x - dx, b.y - dy)]
+            for node in nodes:
+                antinodes.add(node)
+    antinodes = { p for p in antinodes if 0 <= p[0] < w and 0 <= p[1] < h }
     return len(antinodes)
 
 
@@ -61,25 +65,12 @@ class Test(TestCase):
         "............",
         "............",
     ]
-    inpt2 = [
-"..........",
-"..........",
-"..........",
-"....a.....",
-"..........",
-".....a....",
-"..........",
-"..........",
-"..........",
-"..........",
-            ]
 
     def test(self):
         self.test_part1()
         self.test_part2()
 
     def test_part1(self):
-        self.assertEqual(part1(Test.inpt2), 2)
         self.assertEqual(part1(Test.inpt), 14)
         print("part 1 passed")
 

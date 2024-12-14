@@ -18,7 +18,20 @@ def part1(inpt):
 
 
 def part2(inpt):
-    return
+    stones = list(map(int, inpt.split()))
+    for i in range(75):
+        print(i)
+        new_stones = []
+        for stone in stones:
+            if stone == 0:
+                new_stones += ['1']
+            elif len(str(stone)) % 2 == 0:
+                sstone = str(stone)
+                new_stones += [int(sstone[:len(sstone)//2]), int(sstone[len(sstone)//2:])]
+            else:
+                new_stones += [stone * 2024]
+        stones = [int(stone) for stone in new_stones]
+    return len(stones)
 
 
 def main():

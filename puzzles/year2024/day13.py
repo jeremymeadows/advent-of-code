@@ -18,7 +18,22 @@ def part1(inpt):
 
 
 def part2(inpt):
-    return
+    total = 0
+    for a, b, prize, _ in chunks(inpt + [""], 4):
+        ax, ay = map(int, re.findall(r"X.(\d+), Y.(\d+)", a)[0])
+        bx, by = map(int, re.findall(r"X.(\d+), Y.(\d+)", b)[0])
+        px, py = map(int, re.findall(r"X=(\d+), Y=(\d+)", prize)[0])
+        px += 10000000000000 
+        py += 10000000000000 
+        cost = float('inf')
+
+        for cb in range(1, 1000000000000):
+            for ca in range(1, 1000000000000):
+                if ca * ax + cb * bx == px and ca * ay + cb * by == py:
+                    cost = min(cost, ca * 3 + cb)
+            print(cost)
+        total += 0 if cost == float('inf') else cost
+    return total
 
 
 def main():
