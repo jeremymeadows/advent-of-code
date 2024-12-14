@@ -196,7 +196,7 @@ class Graph:
         return paths
 
 
-@dataclass(frozen=True, order=True)
+@dataclass(order=True)
 class Point:
     x: int
     y: int
