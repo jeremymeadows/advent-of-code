@@ -2,9 +2,10 @@ from puzzles.utils import *
 
 
 def part1(inpt):
-    inpt = [list(map(int, x.split())) for x in inpt]
-    col1, col2 = [sorted(col) for col in zip(*inpt)]
-    return sum([abs(a - b) for a, b in zip(col1, col2)])
+    # inpt = [list(map(int, x.split())) for x in inpt]
+    # col1, col2 = [sorted(col) for col in zip(*inpt)]
+    # return sum([abs(a - b) for a, b in zip(col1, col2)])
+    return sum([abs(a - b) for a, b in zip(*[sorted(col) for col in zip(*[list(map(int, x.split())) for x in inpt])])])
 
 
 def part2(inpt):

@@ -21,8 +21,22 @@ def part1(inpt, w = 101, h = 103):
     return product(q)
 
 
-def part2(inpt):
-    return
+def part2(inpt, w = 101, h = 103):
+    robots = []
+    for line in inpt:
+        x, y, vx, vy = map(int, re.findall(r"p=(\d+),(\d+) v=(-?\d+),(-?\d+)", line)[0])
+        robots += [((x, y), (vx, vy))]
+
+    for t in range(7000, 7200):
+        grid = [['.' for _ in range(w)] for _ in range(h)]
+        for i in range(len(robots)):
+            (x, y), (vx, vy) = robots[i]
+            robots[i] = ((x + vx) % w, (y + vy) % h), (vx, vy)
+            (x, y), (vx, vy) = robots[i]
+            grid[y][x] = '#'
+        print('\n'.join([''.join(line) for line in grid]) + '\n\n' + str(t))
+        from time import sleep
+        sleep(0.5)
 
 
 def main():
@@ -34,6 +48,8 @@ def main():
 if __name__ == "__main__":
     main()
 
+
+# not 6800-7200
 
 class Test(TestCase):
     inpt = [
@@ -60,5 +76,5 @@ class Test(TestCase):
         print("part 1 passed")
 
     def test_part2(self):
-        self.assertEqual(part2(Test.inpt), None)
+        self.assertEqual(part2(Test.inpt, 11, 7), None)
         print("part 2 passed")
