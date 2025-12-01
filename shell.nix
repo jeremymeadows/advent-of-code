@@ -4,7 +4,7 @@ pkgs.mkShell {
   buildInputs = with pkgs; [
     python314
 
-    (python314.withPackages (ps: with ps; [
+    (python314.withPackages (p: with p; [
       requests
     ]))
   ];
