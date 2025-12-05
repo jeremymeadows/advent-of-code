@@ -1,3 +1,4 @@
+import bisect
 import copy
 import json
 import re
@@ -245,3 +246,64 @@ class StateMachine:
             self.current_state = next_state
         else:
             raise Exception('invalid state transition')
+
+
+class IntervalSet:
+    def __init__(self, intervals=[]):
+        self._intervals = []
+        for start, end in intervals:
+            self.add(start, end)
+
+    @property
+    def intervals(self):
+        return self._intervals
+
+    def add(self, start, end):
+        intervals = self._intervals
+        i = bisect.bisect_left(intervals, (start, end))
+
+        # Merge with previous interval if overlapping
+        if i > 0 and intervals[i - 1][1] >= start - 1:
+            i -= 1
+            start = min(start, intervals[i][0])
+            end = max(end, intervals[i][1])
+
+        # Merge with all following overlapping intervals
+        j = i
+        while j < len(intervals) and intervals[j][0] <= end + 1:
+            end = max(end, intervals[j][1])
+            j += 1
+
+        # Replace the merged region
+        self._intervals[i:j] = [(start, end)]
+
+    def remove(self, start, end):
+        result = []
+
+        for s, e in self._intervals:
+            if e < start or s > end:
+                result.append((s, e))
+                continue
+
+            # Left remaining part
+            if s < start:
+                result.append((s, start - 1))
+
+            # Right remaining part
+            if e > end:
+                result.append((end + 1, e))
+
+        self._intervals = result
+
+    def __contains__(self, x):
+        i = bisect.bisect_right(self._intervals, (x, float('inf')))
+        if i == 0:
+            return False
+        s, e = self._intervals[i - 1]
+        return s <= x <= e
+
+    def __len__(self):
+        return sum(end - start + 1 for start, end in self._intervals)
+
+    def __repr__(self):
+        return f"IntervalSet({self._intervals})"

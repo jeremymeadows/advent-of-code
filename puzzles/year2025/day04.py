@@ -18,7 +18,7 @@ def part1(inpt):
                     adj += 1
                 if col < len(rolls[row]) - 1 and rolls[row][col + 1] == "@":
                     adj += 1
-                
+
                 if adj < 4:
                     free += 1
     return free
@@ -43,7 +43,7 @@ def part2(inpt):
                         adj += 1
                     if col < len(rolls[row]) - 1 and rolls[row][col + 1] == "@":
                         adj += 1
-                    
+
                     if adj < 4:
                         rolls[row] = rolls[row][:col] + "X" + rolls[row][col + 1:]
                         free += 1

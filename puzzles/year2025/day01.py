@@ -14,13 +14,12 @@ def part1(inpt):
         elif direction == "R":
             location += number
         location %= 100
-        
+
         if location == 0:
             count += 1
     return count
 
 
-#5941
 def part2(inpt):
     count = 0
     location = 50
@@ -34,7 +33,7 @@ def part2(inpt):
             location -= number
         elif direction == "R":
             location += number
-        
+
         count += abs(location // 100)
         location %= 100
 
