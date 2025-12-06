@@ -102,7 +102,7 @@ def rreplace(s, old, new, count=-1):
     return new.join(s.rsplit(old, count))
 
 
-def reverse_matrix(matrix: list[list]) -> list[list]:
+def rotate_matrix(matrix: list[list]) -> list[list]:
     return [list(i) for i in zip(*matrix)]
 
 

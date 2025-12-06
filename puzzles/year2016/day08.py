@@ -19,10 +19,10 @@ def part1(inpt):
                     num, amt = int(num), int(amt)
 
                     if direction == 'column':
-                        screen = reverse_matrix(screen)
+                        screen = rotate_matrix(screen)
                     screen[num] = screen[num][-amt:] + screen[num][:-amt]
                     if direction == 'column':
-                        screen = reverse_matrix(screen)
+                        screen = rotate_matrix(screen)
     return [e for row in screen for e in row].count('#')
 
 
@@ -44,10 +44,10 @@ def part2(inpt):
                     num, amt = int(num), int(amt)
 
                     if direction == 'column':
-                        screen = reverse_matrix(screen)
+                        screen = rotate_matrix(screen)
                     screen[num] = screen[num][-amt:] + screen[num][:-amt]
                     if direction == 'column':
-                        screen = reverse_matrix(screen)
+                        screen = rotate_matrix(screen)
     return '\n' + '\n'.join(''.join(row) for row in screen)
 
 

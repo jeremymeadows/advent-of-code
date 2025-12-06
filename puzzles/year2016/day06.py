@@ -2,11 +2,11 @@ from puzzles.utils import *
 
 
 def part1(inpt):
-    return ''.join([Counter(col).most_common()[0][0] for col in reverse_matrix(inpt)])
+    return ''.join([Counter(col).most_common()[0][0] for col in rotate_matrix(inpt)])
 
 
 def part2(inpt):
-    return ''.join([Counter(col).most_common()[-1][0] for col in reverse_matrix(inpt)])
+    return ''.join([Counter(col).most_common()[-1][0] for col in rotate_matrix(inpt)])
 
 
 def main():

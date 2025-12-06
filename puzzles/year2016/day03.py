@@ -12,7 +12,7 @@ def part1(inpt):
 
 def part2(inpt):
     possible = 0
-    for a, b, c in chunks(list(chain(*reverse_matrix([[int(i) for i in line.split()] for line in inpt]))), 3):
+    for a, b, c in chunks(list(chain(*rotate_matrix([[int(i) for i in line.split()] for line in inpt]))), 3):
         if a + b > c and a + c > b and b + c > a:
             possible += 1
     return possible

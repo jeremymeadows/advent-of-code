@@ -13,7 +13,7 @@ def part1(inpt):
                 summary += i * 100
                 break
         else:
-            pattern = reverse_matrix(pattern)
+            pattern = rotate_matrix(pattern)
             for i in range(1, len(pattern)):
                 a, b = partition(pattern, i)
                 size = min(len(a), len(b))
@@ -37,7 +37,7 @@ def part2(inpt):
                 summary += i * 100
                 break
         else:
-            pattern = reverse_matrix(pattern)
+            pattern = rotate_matrix(pattern)
             for i in range(1, len(pattern)):
                 a, b = partition([''.join(e) for e in pattern], i)
                 size = min(len(a), len(b))

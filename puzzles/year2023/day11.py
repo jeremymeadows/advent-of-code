@@ -2,11 +2,11 @@ from puzzles.utils import *
 
 
 def part1(inpt):
-    star_map = reverse_matrix(inpt)
+    star_map = rotate_matrix(inpt)
     for i, row in reversed(list(enumerate(star_map))):
         if not '#' in row:
             star_map.insert(i, row)
-    star_map = reverse_matrix(star_map)
+    star_map = rotate_matrix(star_map)
     for i, row in reversed(list(enumerate(star_map))):
         if not '#' in row:
             star_map.insert(i, row)
@@ -26,7 +26,7 @@ def part1(inpt):
 
 def part2(inpt):
     distances = ([0] * len(inpt[0]), [0] * len(inpt))
-    star_map = reverse_matrix(inpt)
+    star_map = rotate_matrix(inpt)
     expansion_factor = 1_000_000
 
     for i, row in enumerate(star_map[:-1]):
@@ -35,7 +35,7 @@ def part2(inpt):
         else:
             distances[0][i + 1] = distances[0][i] + 1
 
-    star_map = reverse_matrix(star_map)
+    star_map = rotate_matrix(star_map)
     for i, row in enumerate(star_map[:-1]):
         if not '#' in row:
             distances[1][i + 1] = distances[1][i] + expansion_factor
